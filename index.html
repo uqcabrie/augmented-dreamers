@@ -1,184 +1,109 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-   <meta charset="UTF-8">
-   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-   <title>Augmented Dreamers</title>
-   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
-   <style>
-       /* Reset & Global */
-       * {
-           margin: 0;
-           padding: 0;
-           box-sizing: border-box;
-       }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Augmented Dreamers</title>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700&family=Montserrat:wght@400;700&family=Orbitron:wght@700&display=swap" rel="stylesheet">
+<style>
+   /* Reset */
+   * { margin:0; padding:0; box-sizing:border-box; }
 
-       body {
-           font-family: 'Montserrat', sans-serif;
-           color: #ffffff;
-           background: linear-gradient(135deg, #1a1a2e, #0f3460);
-           scroll-behavior: smooth;
-       }
+   body {
+       font-family: 'Montserrat', sans-serif;
+       background: #1a1a2e url('https://i.ibb.co/3mC1c6F/steampunk-bg.jpg') no-repeat center center fixed;
+       background-size: cover;
+       color: #d4a373;
+       scroll-behavior: smooth;
+   }
 
-       a {
-           text-decoration: none;
-           color: inherit;
-       }
+   a { text-decoration:none; color:inherit; }
 
-       section {
-           min-height: 100vh;
-           display: flex;
-           align-items: center;
-           justify-content: center;
-           text-align: center;
-           padding: 60px 20px;
-       }
+   section { min-height:100vh; display:flex; flex-direction:column; justify-content:center; align-items:center; text-align:center; padding:60px 20px; position:relative; }
 
-       /* Hero Section */
-       #hero {
-           position: relative;
-           background: linear-gradient(135deg, #1a1a2e, #162447);
-       }
+   /* Hero Section */
+   #hero h1 {
+       font-family: 'Orbitron', sans-serif;
+       font-size: 3rem;
+       color: #00f5d4;
+       margin-bottom:20px;
+       text-shadow: 0 0 10px #00f5d4, 0 0 20px #00f5d4;
+       animation: float 6s ease-in-out infinite;
+   }
 
-       #hero h1 {
-           font-size: 3rem;
-           font-weight: 700;
-           margin-bottom: 20px;
-       }
+   #hero p {
+       font-size:1.25rem;
+       margin-bottom:40px;
+       color:#d4a373;
+   }
 
-       #hero p {
-           font-size: 1.25rem;
-           margin-bottom: 40px;
-       }
+   .btn {
+       padding:12px 30px;
+       background: linear-gradient(145deg, #d4a373, #b37b3b);
+       border-radius:30px;
+       border:2px solid #ffe4b5;
+       color:#1a1a2e;
+       font-weight:700;
+       transition:0.3s;
+       box-shadow: 0 0 15px #00f5d4;
+   }
 
-       .btn {
-           padding: 12px 30px;
-           background-color: #00f5d4;
-           color: #0f3460;
-           font-weight: 700;
-           border-radius: 30px;
-           transition: 0.3s;
-       }
+   .btn:hover {
+       transform: scale(1.05);
+       box-shadow: 0 0 25px #00f5d4, 0 0 40px #00f5d4 inset;
+   }
 
-       .btn:hover {
-           background-color: #00e0c1;
-           transform: scale(1.05);
-       }
+   /* About Section */
+   #about { background: rgba(43, 33, 26, 0.85); border-top:2px solid #d4a373; border-bottom:2px solid #d4a373; }
+   #about h2 { font-family: 'Cinzel', serif; font-size:2.5rem; margin-bottom:20px; color:#ffd27f; }
+   #about p { max-width:700px; font-size:1.15rem; line-height:1.6; }
 
-       /* About Section */
-       #about {
-           background: #0f3460;
-           display: flex;
-           flex-direction: column;
-           align-items: center;
-       }
+   /* Coming Soon Section */
+   #coming-soon { background: rgba(26,26,46,0.9); border-top:2px solid #d4a373; }
+   #coming-soon h2 { font-size:2.5rem; margin-bottom:20px; color:#00f5d4; text-shadow: 0 0 5px #00f5d4; }
+   #coming-soon p { font-size:1.15rem; margin-bottom:30px; }
+   #coming-soon input[type="email"] { padding:12px 20px; border-radius:30px; border:none; margin-right:10px; width:250px; max-width:80%; }
+   #coming-soon button { padding:12px 25px; border-radius:30px; border:none; background:#d4a373; color:#1a1a2e; font-weight:700; cursor:pointer; transition:0.3s; }
+   #coming-soon button:hover { background:#b37b3b; box-shadow:0 0 15px #00f5d4; }
 
-       #about h2 {
-           font-size: 2.5rem;
-           margin-bottom: 20px;
-       }
+   /* Footer */
+   footer { background:#2b211a; padding:20px; font-size:0.9rem; color:#cccccc; border-top:2px solid #d4a373; }
 
-       #about p {
-           max-width: 700px;
-           font-size: 1.15rem;
-           line-height: 1.6;
-       }
+   /* Animation for floating */
+   @keyframes float { 0% { transform: translateY(0px);} 50% { transform: translateY(-15px);} 100% { transform: translateY(0px);} }
 
-       /* Coming Soon Section */
-       #coming-soon {
-           background: #162447;
-       }
+   /* Responsive */
+   @media (max-width:768px){
+       #hero h1 { font-size:2.2rem; }
+       #about h2, #coming-soon h2 { font-size:2rem; }
+       #hero p, #about p, #coming-soon p { font-size:1rem; }
+   }
 
-       #coming-soon h2 {
-           font-size: 2.5rem;
-           margin-bottom: 20px;
-       }
-
-       #coming-soon p {
-           font-size: 1.15rem;
-           margin-bottom: 30px;
-       }
-
-       #coming-soon input[type="email"] {
-           padding: 12px 20px;
-           border-radius: 30px;
-           border: none;
-           margin-right: 10px;
-           width: 250px;
-           max-width: 80%;
-       }
-
-       #coming-soon button {
-           padding: 12px 25px;
-           border-radius: 30px;
-           border: none;
-           background-color: #00f5d4;
-           color: #0f3460;
-           font-weight: 700;
-           cursor: pointer;
-           transition: 0.3s;
-       }
-
-       #coming-soon button:hover {
-           background-color: #00e0c1;
-       }
-
-       /* Footer */
-       footer {
-           background: #1a1a2e;
-           padding: 20px;
-           font-size: 0.9rem;
-           color: #cccccc;
-       }
-
-       /* Subtle floating animation for hero */
-       @keyframes float {
-           0% { transform: translateY(0px);}
-           50% { transform: translateY(-15px);}
-           100% { transform: translateY(0px);}
-       }
-
-       #hero h1 {
-           animation: float 6s ease-in-out infinite;
-       }
-
-       /* Responsive */
-       @media (max-width: 768px) {
-           #hero h1 { font-size: 2.2rem; }
-           #about h2, #coming-soon h2 { font-size: 2rem; }
-           #hero p, #about p, #coming-soon p { font-size: 1rem; }
-       }
-   </style>
+</style>
 </head>
 <body>
 
-   <!-- Hero Section -->
+   <!-- Hero -->
    <section id="hero">
-       <div>
-           <h1>A Place for Augmented Dreamers</h1>
-           <p>Explore, share, and create at the intersection of imagination, technology, and human potential.</p>
-           <a href="#coming-soon" class="btn">Join the Journey</a>
-       </div>
+       <h1>Augmented Dreamers</h1>
+       <p>Explore, share, and create at the intersection of imagination, machinery, and human potential.</p>
+       <a href="#coming-soon" class="btn">Join the Journey</a>
    </section>
 
-   <!-- About Section -->
+   <!-- About -->
    <section id="about">
-       <div>
-           <h2>What is an Augmented Dreamer?</h2>
-           <p>An augmented dreamer is someone who combines imagination and technology to explore new frontiers. This is a place to share projects, ideas, and creative experiments — a space for thinkers, makers, and visionaries. Together, we will redefine the boundaries of creativity, intelligence, and human potential.</p>
-       </div>
+       <h2>What is an Augmented Dreamer?</h2>
+       <p>An augmented dreamer is someone who combines imagination and technology to explore new frontiers. This is a place to share projects, ideas, and creative experiments — a space for thinkers, makers, and visionaries. Together, we will redefine the boundaries of creativity, intelligence, and human potential.</p>
    </section>
 
-   <!-- Coming Soon Section -->
+   <!-- Coming Soon -->
    <section id="coming-soon">
-       <div>
-           <h2>Something Extraordinary is Coming</h2>
-           <p>We’re crafting a space for innovation, inspiration, and collaboration. Stay tuned.</p>
-           <form>
-               <input type="email" placeholder="Enter your email" required>
-               <button type="submit">Notify Me</button>
-           </form>
-       </div>
+       <h2>Something Extraordinary is Coming</h2>
+       <p>We’re crafting a space for innovation, inspiration, and collaboration. Stay tuned.</p>
+       <form>
+           <input type="email" placeholder="Enter your email" required>
+           <button type="submit">Notify Me</button>
+       </form>
    </section>
 
    <!-- Footer -->
@@ -189,3 +114,4 @@
 
 </body>
 </html>
+
