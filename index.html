@@ -65,50 +65,48 @@
    /* ABOUT SECTION + FOG */
    #about {
        position: relative;
-       /* no borders or solid background */
+       z-index: 0;
+       /* no borders so transitions are soft */
    }
 
-   /* ── FOG JUST FOR ABOUT, WITH FADE TOP/BOTTOM ── */
-   #about .fog-layer {
+   /* blue.JPG as fog background for ABOUT only */
+   #about::before {
+       content: "";
        position: absolute;
-       top: -15vh;                      /* extend above section a bit */
+       top: -80px;                         /* extend above section a bit */
        left: 0;
        width: 100%;
-       height: calc(100% + 30vh);       /* extend below section a bit */
-       pointer-events: none;
-
+       height: calc(100% + 160px);         /* extend below a bit */
        background: url("blue.JPG") center center / cover no-repeat;
-       opacity: 0.9;                     /* strong fog */
-
-       /* The fade: visible in the middle, transparent at top & bottom */
-
-       /* Safari / WebKit */
-       -webkit-mask-image: -webkit-gradient(
-           linear,
-           left top,
-           left bottom,
-           from(transparent),           /* fully gone at top */
-           color-stop(0.2, black),      /* fully visible from 20% … */
-           color-stop(0.8, black),      /* … to 80% of height */
-           to(transparent)              /* then fade out again */
-       );
-
-       /* Other browsers */
-       mask-image: linear-gradient(
-           to bottom,
-           transparent 0%,
-           black 20%,
-           black 80%,
-           transparent 100%
-       );
-
+       opacity: 0.8;                        /* fog strength */
+       pointer-events: none;
        z-index: 0;
+   }
+
+   /* gradient overlay to soften top & bottom transition */
+   #about::after {
+       content: "";
+       position: absolute;
+       top: -80px;
+       left: 0;
+       width: 100%;
+       height: calc(100% + 160px);
+       pointer-events: none;
+       /* fade from hero bg-ish → clear → coming-soon bg-ish */
+       background: linear-gradient(
+           to bottom,
+           rgba(26,26,46,1) 0%,            /* nearer to body bg at very top */
+           rgba(26,26,46,0) 20%,           /* fully see blue.JPG in middle */
+           rgba(26,26,46,0) 80%,
+           rgba(26,26,46,0.9) 100%         /* close to coming-soon bg at bottom */
+       );
+       z-index: 1;
    }
 
    #about h2,
    #about p {
        position: relative;
-       z-index: 1;  /* above fog */
+       z-index: 2;                         /* sit above fog + gradient */
    }
 
    #about h2 {
@@ -124,7 +122,7 @@
        line-height:1.6;
    }
 
-   /* Coming Soon Section – dark block the fog fades into */
+   /* Coming Soon Section */
    #coming-soon {
        background: rgba(26,26,46,0.9);
    }
@@ -151,32 +149,4 @@
        border-radius:30px;
        border:none;
        background:#d4a373;
-       color:#1a1a2e;
-       font-weight:700;
-       cursor:pointer;
-       transition:0.3s;
-   }
-   #coming-soon button:hover {
-       background:#b37b3b;
-       box-shadow:0 0 15px #00f5d4;
-   }
-
-   /* Footer */
-   footer {
-       background:#2b211a;
-       padding:20px;
-       font-size:0.9rem;
-       color:#cccccc;
-       text-align:center;
-   }
-
-   /* Animation for floating title */
-   @keyframes float {
-       0%   { transform: translateY(0px); }
-       50%  { transform: translateY(-15px); }
-       100% { transform: translateY(0px); }
-   }
-
-   /* Responsive */
-   @media (max-width:768px){
-       #hero h1 { fon
+       color:#1a1a2e
