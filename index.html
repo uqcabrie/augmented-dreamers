@@ -65,42 +65,50 @@
    /* ABOUT SECTION + FOG */
    #about {
        position: relative;
-       /* no borders or solid background so we see IMG_1464.JPG under the fog */
+       /* no borders or solid background */
    }
 
-   /* Static fog layer with gradual vertical fade */
+   /* ── FOG JUST FOR ABOUT, WITH FADE TOP/BOTTOM ── */
    #about .fog-layer {
        position: absolute;
-       top: -10%;          /* extend slightly above section for smoother entry */
+       top: -15vh;                      /* extend above section a bit */
        left: 0;
        width: 100%;
-       height: 130%;       /* extend slightly below section */
+       height: calc(100% + 30vh);       /* extend below section a bit */
        pointer-events: none;
-       /* Two backgrounds:
-          1) A vertical gradient that controls how strong the fog is top → bottom
-          2) The actual blue.JPG fog image
-        */
-       background-image:
-           linear-gradient(
-               to bottom,
-               rgba(26,26,46,0) 0%,      /* fully transparent at very top */
-               rgba(26,26,46,0.2) 15%,   /* starting to form */
-               rgba(26,26,46,0.5) 40%,   /* stronger fog in middle */
-               rgba(26,26,46,0.7) 70%,   /* darkening toward coming soon */
-               rgba(26,26,46,0.9) 100%   /* almost coming-soon bg colour at bottom */
-           ),
-           url("blue.JPG");
-       background-size: 100% 100%, cover;
-       background-repeat: no-repeat, no-repeat;
-       background-position: center, center;
-       opacity: 0.8;        /* overall strength of the fog */
+
+       background: url("blue.JPG") center center / cover no-repeat;
+       opacity: 0.9;                     /* strong fog */
+
+       /* The fade: visible in the middle, transparent at top & bottom */
+
+       /* Safari / WebKit */
+       -webkit-mask-image: -webkit-gradient(
+           linear,
+           left top,
+           left bottom,
+           from(transparent),           /* fully gone at top */
+           color-stop(0.2, black),      /* fully visible from 20% … */
+           color-stop(0.8, black),      /* … to 80% of height */
+           to(transparent)              /* then fade out again */
+       );
+
+       /* Other browsers */
+       mask-image: linear-gradient(
+           to bottom,
+           transparent 0%,
+           black 20%,
+           black 80%,
+           transparent 100%
+       );
+
        z-index: 0;
    }
 
    #about h2,
    #about p {
        position: relative;
-       z-index: 1;          /* keep text above the fog */
+       z-index: 1;  /* above fog */
    }
 
    #about h2 {
@@ -116,10 +124,9 @@
        line-height:1.6;
    }
 
-   /* Coming Soon Section */
+   /* Coming Soon Section – dark block the fog fades into */
    #coming-soon {
        background: rgba(26,26,46,0.9);
-       /* no border so transition from darker fog into this is smooth */
    }
    #coming-soon h2 {
        font-size:2.5rem;
@@ -161,7 +168,6 @@
        font-size:0.9rem;
        color:#cccccc;
        text-align:center;
-       /* no border line */
    }
 
    /* Animation for floating title */
@@ -173,27 +179,4 @@
 
    /* Responsive */
    @media (max-width:768px){
-       #hero h1 { font-size:2.2rem; }
-       #about h2, #coming-soon h2 { font-size:2rem; }
-       #hero p, #about p, #coming-soon p { font-size:1rem; }
-   }
-
-</style>
-</head>
-<body>
-
-   <!-- Hero -->
-   <section id="hero">
-       <h1>Augmented Dreamers</h1>
-       <p>Explore, share, and create at the intersection of imagination, machinery, and human potential.</p>
-       <a href="#coming-soon" class="btn">Join the Journey</a>
-   </section>
-
-   <!-- About -->
-   <section id="about">
-       <div class="fog-layer"></div>
-       <h2>What is an Augmented Dreamer?</h2>
-       <p>An augmented dreamer is someone who combines imagination and technology to explore new frontiers. This is a place to share projects, ideas, and creative experiments — a space for thinkers, makers, and visionaries. Together, we will redefine the boundaries of creativity, intelligence, and human potential.</p>
-   </section>
-
-   <!-- Co
+       #hero h1 { fon
