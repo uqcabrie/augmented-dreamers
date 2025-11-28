@@ -15,11 +15,44 @@
        background-size: cover;
        color: #d4a373;
        scroll-behavior: smooth;
+       position: relative;
+       overflow-x: hidden;
    }
 
    a { text-decoration:none; color:inherit; }
 
-   section { min-height:100vh; display:flex; flex-direction:column; justify-content:center; align-items:center; text-align:center; padding:60px 20px; position:relative; }
+   /* FOG LAYER (blue.JPG as drifting transparent fog) */
+   .fog-layer {
+       position: fixed;
+       top: 0;
+       left: 0;
+       width: 100%;
+       height: 100%;
+       pointer-events: none;           /* don't block clicks */
+       background-image: url("blue.JPG");
+       background-size: cover;         /* adjust to taste; try 150% 150% for “thicker” fog */
+       background-repeat: no-repeat;
+       background-position: 0 0;
+       opacity: 0.25;                  /* fog strength */
+       animation: fog-drift 60s linear infinite;
+       z-index: 0;
+   }
+
+   /* All content should sit above the fog */
+   section, footer {
+       position: relative;
+       z-index: 1;
+   }
+
+   section {
+       min-height:100vh;
+       display:flex;
+       flex-direction:column;
+       justify-content:center;
+       align-items:center;
+       text-align:center;
+       padding:60px 20px;
+   }
 
    /* Hero Section */
    #hero h1 {
@@ -54,28 +87,85 @@
    }
 
    /* About Section */
-   #about { background-image: url("blue.JPG");
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
-    border-top:2px solid #d4a373;
-    border-bottom:2px solid #d4a373;}
-   #about h2 { font-family: 'Cinzel', serif; font-size:2.5rem; margin-bottom:20px; color:#00F5D4; }
-   #about p { max-width:700px; font-size:1.15rem; line-height:1.6; }
+   /* Remove background-image here so we can see the main bg through the fog */
+   #about {
+       border-top:2px solid #d4a373;
+       border-bottom:2px solid #d4a373;
+       background: rgba(0, 0, 0, 0.35);  /* subtle panel over fog; tweak/ remove if you want */
+   }
+   #about h2 {
+       font-family: 'Cinzel', serif;
+       font-size:2.5rem;
+       margin-bottom:20px;
+       color:#00F5D4;
+   }
+   #about p {
+       max-width:700px;
+       font-size:1.15rem;
+       line-height:1.6;
+   }
 
    /* Coming Soon Section */
-   #coming-soon { background: rgba(26,26,46,0.9); border-top:2px solid #d4a373; }
-   #coming-soon h2 { font-size:2.5rem; margin-bottom:20px; color:#00f5d4; text-shadow: 0 0 5px #00f5d4; }
-   #coming-soon p { font-size:1.15rem; margin-bottom:30px; }
-   #coming-soon input[type="email"] { padding:12px 20px; border-radius:30px; border:none; margin-right:10px; width:250px; max-width:80%; }
-   #coming-soon button { padding:12px 25px; border-radius:30px; border:none; background:#d4a373; color:#1a1a2e; font-weight:700; cursor:pointer; transition:0.3s; }
-   #coming-soon button:hover { background:#b37b3b; box-shadow:0 0 15px #00f5d4; }
+   #coming-soon {
+       background: rgba(26,26,46,0.9);
+       border-top:2px solid #d4a373;
+   }
+   #coming-soon h2 {
+       font-size:2.5rem;
+       margin-bottom:20px;
+       color:#00f5d4;
+       text-shadow: 0 0 5px #00f5d4;
+   }
+   #coming-soon p {
+       font-size:1.15rem;
+       margin-bottom:30px;
+   }
+   #coming-soon input[type="email"] {
+       padding:12px 20px;
+       border-radius:30px;
+       border:none;
+       margin-right:10px;
+       width:250px;
+       max-width:80%;
+   }
+   #coming-soon button {
+       padding:12px 25px;
+       border-radius:30px;
+       border:none;
+       background:#d4a373;
+       color:#1a1a2e;
+       font-weight:700;
+       cursor:pointer;
+       transition:0.3s;
+   }
+   #coming-soon button:hover {
+       background:#b37b3b;
+       box-shadow:0 0 15px #00f5d4;
+   }
 
    /* Footer */
-   footer { background:#2b211a; padding:20px; font-size:0.9rem; color:#cccccc; border-top:2px solid #d4a373; }
+   footer {
+       background:#2b211a;
+       padding:20px;
+       font-size:0.9rem;
+       color:#cccccc;
+       border-top:2px solid #d4a373;
+       text-align:center;
+   }
 
-   /* Animation for floating */
-   @keyframes float { 0% { transform: translateY(0px);} 50% { transform: translateY(-15px);} 100% { transform: translateY(0px);} }
+   /* Animation for floating title */
+   @keyframes float {
+       0%   { transform: translateY(0px); }
+       50%  { transform: translateY(-15px); }
+       100% { transform: translateY(0px); }
+   }
+
+   /* Fog drifting animation */
+   @keyframes fog-drift {
+       0%   { background-position: 0 0; }
+       50%  { background-position: 200px 100px; }
+       100% { background-position: 400px 0; }
+   }
 
    /* Responsive */
    @media (max-width:768px){
@@ -87,6 +177,9 @@
 </style>
 </head>
 <body>
+
+   <!-- Fog Layer -->
+   <div class="fog-layer"></div>
 
    <!-- Hero -->
    <section id="hero">
@@ -119,4 +212,3 @@
 
 </body>
 </html>
-
