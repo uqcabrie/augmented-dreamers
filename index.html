@@ -62,51 +62,57 @@
        box-shadow: 0 0 25px #00f5d4, 0 0 40px #00f5d4 inset;
    }
 
-   /* ABOUT SECTION + FOG */
+   /* ABOUT SECTION with blue.JPG and faded borders */
    #about {
        position: relative;
        z-index: 0;
-       /* no borders so transitions are soft */
+       background-image: url("blue.JPG");
+       background-size: cover;
+       background-position: center;
+       background-repeat: no-repeat;
+       overflow: hidden; /* so fades don't spill out */
+       /* no border-top / border-bottom so the fades do the work */
    }
 
-   /* blue.JPG as fog background for ABOUT only */
+   /* Top faded border */
    #about::before {
        content: "";
        position: absolute;
-       top: -80px;                         /* extend above section a bit */
+       top: 0;
        left: 0;
        width: 100%;
-       height: calc(100% + 160px);         /* extend below a bit */
-       background: url("blue.JPG") center center / cover no-repeat;
-       opacity: 0.8;                        /* fog strength */
+       height: 80px; /* thickness of top fade */
        pointer-events: none;
+       background: linear-gradient(
+           to bottom,
+           rgba(26,26,46,1) 0%,   /* closer to body background at very top */
+           rgba(26,26,46,0) 100%  /* fully transparent, revealing blue.JPG */
+       );
        z-index: 0;
    }
 
-   /* gradient overlay to soften top & bottom transition */
+   /* Bottom faded border */
    #about::after {
        content: "";
        position: absolute;
-       top: -80px;
+       bottom: 0;
        left: 0;
        width: 100%;
-       height: calc(100% + 160px);
+       height: 80px; /* thickness of bottom fade */
        pointer-events: none;
-       /* fade from hero bg-ish → clear → coming-soon bg-ish */
        background: linear-gradient(
-           to bottom,
-           rgba(26,26,46,1) 0%,            /* nearer to body bg at very top */
-           rgba(26,26,46,0) 20%,           /* fully see blue.JPG in middle */
-           rgba(26,26,46,0) 80%,
-           rgba(26,26,46,0.9) 100%         /* close to coming-soon bg at bottom */
+           to top,
+           rgba(26,26,46,0.9) 0%, /* close to coming-soon background */
+           rgba(26,26,46,0) 100%  /* fade into blue.JPG above */
        );
-       z-index: 1;
+       z-index: 0;
    }
 
+   /* Make sure text in #about sits above the fades */
    #about h2,
    #about p {
        position: relative;
-       z-index: 2;                         /* sit above fog + gradient */
+       z-index: 1;
    }
 
    #about h2 {
